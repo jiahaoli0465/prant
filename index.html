@@ -60,8 +60,21 @@
           orientation: screen.orientation.type,
         };
 
+        // Mock some fun and harmless fake data
+        const fakeData = {
+          favoriteColor: "blue",
+          favoriteFood: "pizza",
+          mostVisitedWebsite: "cats.com",
+          lastSearch: "how to secure my browser from pranks",
+        };
+
         // Combine all information
-        const allInfo = { ...cookies, ...browserInfo, ...screenInfo };
+        const allInfo = {
+          ...cookies,
+          ...browserInfo,
+          ...screenInfo,
+          ...fakeData,
+        };
 
         // Filter out null values
         const filteredInfo = Object.entries(allInfo).filter(
@@ -76,7 +89,7 @@
               key.charAt(0).toUpperCase() + key.slice(1)
             }:</strong> ${value}</p>`;
           });
-          userInfoElement.innerHTML += `<p><strong>Favorite Prank:</strong> Got you!</p>`;
+          userInfoElement.innerHTML += `<p>should not click on hidden links :)</p>`;
         } else {
           userInfoElement.innerHTML = "<p>jkjk.</p>";
         }
