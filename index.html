@@ -31,13 +31,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", (event) => {
-        // Retrieve information from local storage
-        let userInfo = {
-          name: localStorage.getItem("name"),
-          age: localStorage.getItem("age"),
-          city: localStorage.getItem("city"),
-          email: localStorage.getItem("email"),
-        };
+        const userInfoElement = document.getElementById("userInfo");
 
         // Retrieve cookies
         const cookies = document.cookie.split(";").reduce((cookies, cookie) => {
@@ -53,6 +47,8 @@
           language: navigator.language,
           online: navigator.onLine,
           javaEnabled: navigator.javaEnabled(),
+          cookieEnabled: navigator.cookieEnabled,
+          doNotTrack: navigator.doNotTrack,
         };
 
         // Get screen information
@@ -60,15 +56,12 @@
           width: screen.width,
           height: screen.height,
           colorDepth: screen.colorDepth,
+          pixelDepth: screen.pixelDepth,
+          orientation: screen.orientation.type,
         };
 
         // Combine all information
-        const allInfo = {
-          ...userInfo,
-          ...cookies,
-          ...browserInfo,
-          ...screenInfo,
-        };
+        const allInfo = { ...cookies, ...browserInfo, ...screenInfo };
 
         // Filter out null values
         const filteredInfo = Object.entries(allInfo).filter(
@@ -77,13 +70,13 @@
         );
 
         // Display the information
-        const userInfoElement = document.getElementById("userInfo");
         if (filteredInfo.length > 0) {
           filteredInfo.forEach(([key, value]) => {
             userInfoElement.innerHTML += `<p><strong>${
               key.charAt(0).toUpperCase() + key.slice(1)
             }:</strong> ${value}</p>`;
           });
+          userInfoElement.innerHTML += `<p><strong>Favorite Prank:</strong> Got you!</p>`;
         } else {
           userInfoElement.innerHTML = "<p>jkjk.</p>";
         }
