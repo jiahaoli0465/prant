@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Got You Jair</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      .container {
+        display: inline-block;
+        text-align: left;
+      }
+      h1 {
+        color: #333;
+      }
+      p {
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Got you, Jair</h1>
+    <div class="container">
+      <h2>Your Information:</h2>
+      <p id="userInfo">Loading...</p>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", (event) => {
+        let userInfo = {
+          name: localStorage.getItem("name"),
+          age: localStorage.getItem("age"),
+          city: localStorage.getItem("city"),
+          email: localStorage.getItem("email"),
+        };
+
+        userInfo = Object.entries(userInfo).filter(
+          ([key, value]) => value !== null
+        );
+
+        const userInfoElement = document.getElementById("userInfo");
+        if (userInfo.length > 0) {
+          userInfo.forEach(([key, value]) => {
+            userInfoElement.innerHTML += `<p><strong>${
+              key.charAt(0).toUpperCase() + key.slice(1)
+            }:</strong> ${value}</p>`;
+          });
+        } else {
+          userInfoElement.innerHTML = "<p>No personal information stored.</p>";
+        }
+      });
+    </script>
+  </body>
+</html>
