@@ -31,6 +31,7 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", (event) => {
+        // Retrieve information from local storage
         let userInfo = {
           name: localStorage.getItem("name"),
           age: localStorage.getItem("age"),
@@ -38,13 +39,33 @@
           email: localStorage.getItem("email"),
         };
 
-        userInfo = Object.entries(userInfo).filter(
-          ([key, value]) => value !== null
+        // Retrieve cookies
+        const cookies = document.cookie.split(";").reduce((cookies, cookie) => {
+          const [name, value] = cookie.split("=").map((c) => c.trim());
+          cookies[name] = value;
+          return cookies;
+        }, {});
+
+        // Retrieve browser properties
+        const browserInfo = {
+          userAgent: navigator.userAgent,
+          platform: navigator.platform,
+          language: navigator.language,
+        };
+
+        // Combine all information
+        const allInfo = { ...userInfo, ...cookies, ...browserInfo };
+
+        // Filter out null values
+        const filteredInfo = Object.entries(allInfo).filter(
+          ([key, value]) =>
+            value !== null && value !== undefined && value !== ""
         );
 
+        // Display the information
         const userInfoElement = document.getElementById("userInfo");
-        if (userInfo.length > 0) {
-          userInfo.forEach(([key, value]) => {
+        if (filteredInfo.length > 0) {
+          filteredInfo.forEach(([key, value]) => {
             userInfoElement.innerHTML += `<p><strong>${
               key.charAt(0).toUpperCase() + key.slice(1)
             }:</strong> ${value}</p>`;
