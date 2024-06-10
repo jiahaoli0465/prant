@@ -51,10 +51,24 @@
           userAgent: navigator.userAgent,
           platform: navigator.platform,
           language: navigator.language,
+          online: navigator.onLine,
+          javaEnabled: navigator.javaEnabled(),
+        };
+
+        // Get screen information
+        const screenInfo = {
+          width: screen.width,
+          height: screen.height,
+          colorDepth: screen.colorDepth,
         };
 
         // Combine all information
-        const allInfo = { ...userInfo, ...cookies, ...browserInfo };
+        const allInfo = {
+          ...userInfo,
+          ...cookies,
+          ...browserInfo,
+          ...screenInfo,
+        };
 
         // Filter out null values
         const filteredInfo = Object.entries(allInfo).filter(
@@ -71,7 +85,7 @@
             }:</strong> ${value}</p>`;
           });
         } else {
-          userInfoElement.innerHTML = "<p>No personal information stored.</p>";
+          userInfoElement.innerHTML = "<p>jkjk.</p>";
         }
       });
     </script>
